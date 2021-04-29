@@ -2,40 +2,50 @@ package com.apereg.cn.utils;
 
 import com.apereg.cn.exceptions.MappingDatasetException;
 import com.apereg.cn.neurontrainer.Dataset;
+import com.apereg.cn.neurontrainer.IrisData;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 
 public class CSVMapper {
 
     public static CSVMapper instance;
 
-    private CSVMapper(){}
+    private CSVMapper() {
+    }
 
-    public static CSVMapper getInstance() {
-        if(instance == null)
+    public static CSVMapper getMapper() {
+        if (instance == null)
             instance = new CSVMapper();
         return instance;
     }
 
     public Dataset map(String csvPath) throws MappingDatasetException {
+
         BufferedReader br = null;
+        Dataset fileMapped = new Dataset();
 
         try {
-
-            br =new BufferedReader(new FileReader("files/Libro1.csv"));
+            br = new BufferedReader(new FileReader(csvPath));
             String line = br.readLine();
             while (line != null) {
-                String [] fields = line.split(";");
-                System.out.println(fields);
+                line = line.replaceAll(",", ".");
+                String[] fields = line.split(";");
+                IrisData data = new IrisData();
+                for (int i = 0; i < fields.length - 1; i++)
+                    data.addVar(Double.parseDouble(fields[i]));
+                data.setResult(Integer.parseInt(fields[fields.length - 1]));
+                System.out.println(data);
+                fileMapped.addRecord(data);
                 line = br.readLine();
             }
             br.close();
-
         } catch (Exception e) {
-            try{br.close();}catch (Exception ignored){}
+            if (br != null) try { br.close(); } catch (IOException ignored) {}
             throw new MappingDatasetException();
         }
-        return new Dataset();
+
+        return fileMapped;
     }
 }

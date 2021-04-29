@@ -1,8 +1,12 @@
 package com.apereg.cn;
 
+import com.apereg.cn.exceptions.MappingDatasetException;
+import com.apereg.cn.neurontrainer.Dataset;
+import com.apereg.cn.utils.CSVMapper;
+
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws MappingDatasetException {
         //TODO mapear
         int n; // Dimension del espacio de entrada (4)
         int s; // cardinal del espacio de busquea 150
@@ -18,6 +22,7 @@ public class Main {
         float a = 0f; //a definir
         int t = 0; // a definir
         //int gammaT = -1 / (1 + e^(- alpha * (t - a)));
+        Dataset trainingDataSet = CSVMapper.getMapper().map("./resources/iris_dataset.csv");
 
     }
 
