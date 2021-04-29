@@ -7,22 +7,12 @@ import com.apereg.cn.utils.CSVMapper;
 public class Main {
 
     public static void main(String[] args) throws MappingDatasetException {
-        //TODO mapear
-        int n; // Dimension del espacio de entrada (4)
-        int s; // cardinal del espacio de busquea 150
-        int s1; // cardinal del espacio de validacion 15
-        int s2; // cardinal del espacio de entrenamiento 15
-        int dk; // ultimas columnas
-        double Ea1 = 0.1; // Error minimo de validacion
-        double Ea2 = 0.1; // Error minimo de entrenamiento
-        int t_max1 = 1; //Tiempo maximo para el conjunto de validacion
-        int t_max2 = 2; // Tiempo maximo para el conjunto de entrenamiento
-        float e = (float) 2.7; //...
-        float alpha = 0.5f;
-        float a = 0f; //a definir
-        int t = 0; // a definir
-        //int gammaT = -1 / (1 + e^(- alpha * (t - a)));
-        Dataset trainingDataSet = CSVMapper.getMapper().map("./resources/iris_dataset.csv");
+
+        CSVMapper mapper = CSVMapper.getMapper();
+        Dataset trainingDataSet = mapper.map("./resources/iris_dataset.csv");
+        Dataset validationDataSet = mapper.map("./resources/iris_train.csv");
+        System.out.println(trainingDataSet.toString());
+        System.out.println(validationDataSet.toString());
 
     }
 

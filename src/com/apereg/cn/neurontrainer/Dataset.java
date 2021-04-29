@@ -23,4 +23,12 @@ public class Dataset {
         return this.irisDataset.get(index);
     }
 
+    @Override
+    public String toString(){
+        StringBuilder str = new StringBuilder("Dataset:\n");
+        for (IrisData data : irisDataset)
+            str.append("\t").append(data.toString()).append("\n");
+        return str.toString();
+    }
+
 }

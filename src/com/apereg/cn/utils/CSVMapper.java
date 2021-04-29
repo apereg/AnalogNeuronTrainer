@@ -36,7 +36,6 @@ public class CSVMapper {
                 for (int i = 0; i < fields.length - 1; i++)
                     data.addVar(Double.parseDouble(fields[i]));
                 data.setResult(Integer.parseInt(fields[fields.length - 1]));
-                System.out.println(data);
                 fileMapped.addRecord(data);
                 line = br.readLine();
             }
