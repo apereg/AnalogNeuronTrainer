@@ -2,61 +2,38 @@ package com.apereg.cn;
 
 import com.apereg.cn.exceptions.MappingDatasetException;
 import com.apereg.cn.neurontrainer.Dataset;
+import com.apereg.cn.neurontrainer.Trainer;
 import com.apereg.cn.utils.CSVMapper;
 
 public class Main {
 
+    public static final int N = 4;
+
+    public static final int S = 150;
+
+    public static final int S_VALIDATION = 15;
+
     public static void main(String[] args) throws MappingDatasetException {
+        Dataset trainingDataset = CSVMapper.getMapper().map("./resources/iris_dataset.csv");
+        Dataset validationDataset = CSVMapper.getMapper().map("./resources/iris_train.csv");
 
-        CSVMapper mapper = CSVMapper.getMapper();
-        Dataset trainingDataSet = mapper.map("./resources/iris_dataset.csv");
-        Dataset validationDataSet = mapper.map("./resources/iris_train.csv");
-        System.out.println(trainingDataSet.toString());
-        System.out.println(validationDataSet.toString());
-
+        Trainer trainer = new Trainer(trainingDataset, validationDataset);
+        trainer.train();
     }
 
-    public void algoritmoAprendizaje(){
-        int T;
-        int t;
-        /* Desde j=0 a n inicializar pesos aleatoriamente entre -1 y 1 cerrado
-        calcular en potencial para cada muestra p = sum(wj * xkj para j desde 0 a n)
-        calculamos la salida y(k) = f(p(k))
-        calcular errores en K = 0,5 * (salida para k - salida esperada para k (yk - dk))
-        calcular error de validacion que es et1 = sum(E(k), PARA K DE 0 A S1-1
-        y error de validacion igual pero a S2-1
-        em1 = et1 / s1 y lo mismo pal 2
-         */
-
-        /*while(Em1 > Ea1 && T > t_max1)
-        entrena
-        calcula em1
-        T++
-         */
-
-        /* Entrenamiento
-        while (EM2 > Ea2 && t > t_max2) {
-        for k = o to s2 -1{
-        calculamos p(k) e y(k)
-        y se recorren los pesos for j = 0 to n
-        w[j] += -gamma(t) * la derivada correspondiente (0,5 * 2 * yk - salida esperada (d[k] *deryp * derp wj)
-
-        Una vez que pasa por todas las muestras se calcula el eror medio para el conjunto de entrenamiento
-        em2 con los ultimos pesos obtenidos:
-        for k = 0 to s2 -1 (todas las muestras del conjunto de entrenamiento)
-            se calcula potencial p(k) y y(k)
-            Et2 (error total enel entrenamiento) += error en k (0,2 * (y(k) - d[k]) ^ 2
-            t++;
-        Em2 = Et2 / s2;
-         */
+    public static int getN() {
+        return Main.N;
     }
 
-    public void derivadas(){
-        /* Tod o para cada k)
-        int opcionf = 0; // 0 identidad; 1 senPk; 2 sigmoide; 3 gaussiana (la campana)
-        int opciong = 0; // 0 habitual, 1 impulsos potenciados y ponderados
-        /* deryp para f = 0 ( lo de la hoja)
-            derpwj = xj ^ rj
-         */
+    public static int getS() {
+        return Main.S;
+    }
+
+    public static int getSValidation() {
+        return Main.S_VALIDATION;
+    }
+
+    public static int getSTraining() {
+        return Main.S - Main.S_VALIDATION;
     }
 }

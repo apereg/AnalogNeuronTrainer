@@ -15,6 +15,7 @@ public class CSVMapper {
     private CSVMapper() {
     }
 
+    /* Clase Singleton. */
     public static CSVMapper getMapper() {
         if (instance == null)
             instance = new CSVMapper();
@@ -30,8 +31,10 @@ public class CSVMapper {
             br = new BufferedReader(new FileReader(csvPath));
             String line = br.readLine();
             while (line != null) {
+                /* Se cambian las comas por puntos por el formato de numero decimal. */
                 line = line.replaceAll(",", ".");
                 String[] fields = line.split(";");
+                /* Se van creando objetos de tipo data por cada fila del csv. */
                 IrisData data = new IrisData();
                 for (int i = 0; i < fields.length - 1; i++)
                     data.addVar(Double.parseDouble(fields[i]));
@@ -42,7 +45,7 @@ public class CSVMapper {
             br.close();
         } catch (Exception e) {
             if (br != null) try { br.close(); } catch (IOException ignored) {}
-            throw new MappingDatasetException();
+            throw new MappingDatasetException("Fallo en el mapeo de " + csvPath);
         }
 
         return fileMapped;
