@@ -5,10 +5,6 @@ import com.apereg.cn.exceptions.InvalidConfigException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.Properties;
 
 public class Config {
@@ -28,7 +24,7 @@ public class Config {
 
     public static double getEa1() throws InvalidConfigException {
         try {
-            return Double.valueOf(prop.getProperty("Ea1"));
+            return Double.parseDouble(prop.getProperty("Ea1"));
         } catch (Exception e) {
             throw new InvalidConfigException("Error al leer la propiedad 'Ea1' del fichero params.properties");
         }
@@ -36,7 +32,7 @@ public class Config {
 
     public static double getEa2() throws InvalidConfigException {
         try {
-            return Double.valueOf(prop.getProperty("Ea2"));
+            return Double.parseDouble(prop.getProperty("Ea2"));
         } catch (Exception e) {
             throw new InvalidConfigException("Error al leer la propiedad 'Ea2' del fichero params.properties");
         }
@@ -44,7 +40,7 @@ public class Config {
 
     public static double getTMax1() throws InvalidConfigException {
         try {
-            return Double.valueOf(prop.getProperty("TMax1"));
+            return Double.parseDouble(prop.getProperty("TMax1"));
         } catch (Exception e) {
             throw new InvalidConfigException("Error al leer la propiedad 'TMax1' del fichero params.properties");
         }
@@ -52,7 +48,7 @@ public class Config {
 
     public static double getTMax2() throws InvalidConfigException {
         try {
-            return Double.valueOf(prop.getProperty("TMax2"));
+            return Double.parseDouble(prop.getProperty("TMax2"));
         } catch (Exception e) {
             throw new InvalidConfigException("Error al leer la propiedad 'TMax2' del fichero params.properties");
         }
@@ -60,10 +56,18 @@ public class Config {
 
     public static double getGamma() throws InvalidConfigException {
         try {
-            return Double.valueOf(prop.getProperty("Gamma"));
+            return Double.parseDouble(prop.getProperty("Gamma"));
         } catch (Exception e) {
             throw new InvalidConfigException("Error al leer la propiedad 'Gamma' del fichero params.properties");
         }
     }
+    public static double getAlpha() throws InvalidConfigException {
+        try {
+            return Double.parseDouble(prop.getProperty("Alpha"));
+        } catch (Exception e) {
+            throw new InvalidConfigException("Error al leer la propiedad 'Alpha' del fichero params.properties");
+        }
+    }
+
 
 }

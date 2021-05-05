@@ -17,8 +17,13 @@ public class Main {
         Dataset trainingDataset = CSVMapper.getMapper().map("./resources/iris_dataset.csv");
         Dataset validationDataset = CSVMapper.getMapper().map("./resources/iris_train.csv");
 
+        // TODO settear los N y S segun los valores de los datasets
         Trainer trainer = new Trainer(trainingDataset, validationDataset);
-        trainer.train();
+        trainer.run();
+        getConfigValues();
+    }
+
+    private static void getConfigValues() {
     }
 
     public static int getN() {
@@ -35,5 +40,21 @@ public class Main {
 
     public static int getSTraining() {
         return Main.S - Main.S_VALIDATION;
+    }
+
+    public static double getEa1() {
+        return 0;
+    }
+
+    public static int getTMax1() {
+        return 0;
+    }
+
+    public static int getTMax2() {
+        return 0;
+    }
+
+    public static double getEa2() {
+        return 0;
     }
 }

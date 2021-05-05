@@ -15,7 +15,7 @@ public class Dataset {
         irisDataset.add(data);
     }
 
-    public int getDatasetLength() {
+    public int getSize() {
         return irisDataset.size();
     }
 
