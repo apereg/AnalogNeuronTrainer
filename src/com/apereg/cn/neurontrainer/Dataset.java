@@ -31,4 +31,7 @@ public class Dataset {
         return str.toString();
     }
 
+    public int getDataVars() {
+        return this.getIrisData(0).getVarsLength();
+    }
 }

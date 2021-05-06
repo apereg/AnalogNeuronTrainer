@@ -32,6 +32,10 @@ public class IrisData {
         return this.weights.get(index);
     }
 
+    public int getVarsLength(){
+        return this.vars.size();
+    }
+
     @Override
     public String toString(){
         StringBuilder str = new StringBuilder("Datos: [");

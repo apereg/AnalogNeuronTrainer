@@ -38,17 +38,17 @@ public class Config {
         }
     }
 
-    public static double getTMax1() throws InvalidConfigException {
+    public static int getTMax1() throws InvalidConfigException {
         try {
-            return Double.parseDouble(prop.getProperty("TMax1"));
+            return Integer.parseInt(prop.getProperty("TMax1"));
         } catch (Exception e) {
             throw new InvalidConfigException("Error al leer la propiedad 'TMax1' del fichero params.properties");
         }
     }
 
-    public static double getTMax2() throws InvalidConfigException {
+    public static int getTMax2() throws InvalidConfigException {
         try {
-            return Double.parseDouble(prop.getProperty("TMax2"));
+            return Integer.parseInt(prop.getProperty("TMax2"));
         } catch (Exception e) {
             throw new InvalidConfigException("Error al leer la propiedad 'TMax2' del fichero params.properties");
         }
