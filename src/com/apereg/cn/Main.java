@@ -4,22 +4,21 @@ import com.apereg.cn.controllers.Config;
 import com.apereg.cn.exceptions.InvalidConfigException;
 import com.apereg.cn.exceptions.MappingDatasetException;
 import com.apereg.cn.neurontrainer.Dataset;
+import com.apereg.cn.neurontrainer.Functions;
 import com.apereg.cn.neurontrainer.Trainer;
 import com.apereg.cn.utils.CSVMapper;
 
 public class Main {
 
-    public static int N = 4;
+    public static Functions USED_FUNCTION = Functions.SEN;
 
-    public static int S = 150;
+    public static int N;
 
-    public static int S_VALIDATION = 15;
+    public static int S, S_VALIDATION;
 
-    public static double EA1;
-    public static double EA2;
+    public static double EA1, EA2;
 
-    public static int T_MAX1;
-    public static int T_MAX2;
+    public static int T_MAX1, T_MAX2;
 
     public static int[] R;
 
@@ -61,12 +60,18 @@ public class Main {
         /* Se comprueban todos los parametros en busca de inconsistencias. */
         StringBuilder exceptions = new StringBuilder();
 
-        if(Main.GAMMA < 0 || Main.GAMMA > 1)
+        if (Main.GAMMA < 0 || Main.GAMMA > 1)
             exceptions.append("\tEl parametro Gamma debe estar en el intervalo [0,1)\n");
+
+        //TODO todos los demas
 
         /* Si alguno de los parametros es inconsistente se muestra la información como excepcion. */
         if (exceptions.length() != 0)
             throw new InvalidConfigException("Se deben corregir los siguientes fallos en el fichero params.properties:\n" + exceptions);
+    }
+
+    public static Functions getUsedFunction(){
+        return Main.USED_FUNCTION;
     }
 
     public static int getN() {

@@ -59,7 +59,7 @@ public class Config {
         try {
             return Arrays.stream(prop.getProperty("r").split(",")).mapToInt(Integer::parseInt).toArray();
         } catch (Exception e) {
-            throw new InvalidConfigException("Error al leer la propiedad 'TMax2' del fichero params.properties");
+                throw new InvalidConfigException("Error al leer la propiedad 'R' del fichero params.properties (Asegurate de separarlo con ',' sin espacios)");
         }
     }
 
