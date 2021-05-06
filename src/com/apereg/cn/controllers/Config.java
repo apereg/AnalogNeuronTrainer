@@ -5,6 +5,7 @@ import com.apereg.cn.exceptions.InvalidConfigException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Properties;
 
 public class Config {
@@ -54,6 +55,15 @@ public class Config {
         }
     }
 
+    public static int[] getR() throws InvalidConfigException {
+        try {
+            return Arrays.stream(prop.getProperty("r").split(",")).mapToInt(Integer::parseInt).toArray();
+        } catch (Exception e) {
+            throw new InvalidConfigException("Error al leer la propiedad 'TMax2' del fichero params.properties");
+        }
+    }
+
+
     public static double getGamma() throws InvalidConfigException {
         try {
             return Double.parseDouble(prop.getProperty("Gamma"));
@@ -68,6 +78,5 @@ public class Config {
             throw new InvalidConfigException("Error al leer la propiedad 'Alpha' del fichero params.properties");
         }
     }
-
 
 }

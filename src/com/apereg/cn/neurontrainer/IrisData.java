@@ -7,39 +7,52 @@ public class IrisData {
 
     private final List<Double> vars;
 
-    private final List<Double> weights;
+    private double potential;
 
-    private int result;
+    private double predictedResult;
+
+    private double result;
 
     public IrisData() {
         vars = new LinkedList<>();
-        weights = new LinkedList<>();
     }
 
-    public void addVar(Double var){
-        vars.add(var);
-    }
-
-    public void setResult(int result){
-        this.result = result;
-    }
-
-    public void setWeight(int index, double weight){
-        this.weights.set(index, weight);
-    }
-
-    public double getWeight(int index){
-        return this.weights.get(index);
-    }
-
-    public int getVarsLength(){
+    public int getVarsLength() {
         return this.vars.size();
     }
 
+    public void addVar(Double var) {
+        vars.add(var);
+    }
+
+    public double getPotential() {
+        return this.potential;
+    }
+
+    public void setPotential(double potential) {
+        this.potential = potential;
+    }
+
+    public double getPredictedResult() {
+        return this.predictedResult;
+    }
+
+    public void setPredictedResult(double predictedResult) {
+        this.predictedResult = predictedResult;
+    }
+
+    public double getResult() {
+        return this.result;
+    }
+
+    public void setResult(double result) {
+        this.result = result;
+    }
+
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder str = new StringBuilder("Datos: [");
-        for (Double data: vars)
+        for (Double data : vars)
             str.append(data).append(", ");
         return str.delete(str.length() - 2, str.length()).append("] --> Resultado: ").append(result).toString();
     }

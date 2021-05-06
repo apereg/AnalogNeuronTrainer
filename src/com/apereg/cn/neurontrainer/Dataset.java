@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Dataset {
 
-    private List<IrisData> irisDataset;
+    private final List<IrisData> irisDataset;
 
     public Dataset(){
         this.irisDataset = new LinkedList<>();

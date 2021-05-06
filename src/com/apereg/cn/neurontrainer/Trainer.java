@@ -13,8 +13,6 @@ public class Trainer {
 
     private List<Double> weights;
 
-    double potential;
-
     private int t = 0;
     private int tMax1 = Main.getTMax1();
     private int tMax2 = Main.getTMax2();
@@ -29,16 +27,17 @@ public class Trainer {
 
     public void run() {
         /* Se inicializan los pesos y se calculan Em1 y Em2. */
-        for (int i = 0; i < trainingDataset.getSize(); i++) {
-            IrisData data = trainingDataset.getIrisData(i);
-            for (int j = 0; j < Main.getN(); j++)
-                data.setWeight(j, Utils.generateRandom(-1, 1));
+        for (int i = 0; i < Main.getN(); i++)
+            weights.add(Utils.generateRandom(-1, 1));
 
-        }
+        Em1 = 0;
+        Em2 = 0;
+
         while (Em1 > Ea1 && t < tMax1) {
             this.train();
             t++;
-            /* Se calcula Em1. */
+            /* Se recalcula Em1. */
+            Em1 = 0;
         }
 
     }

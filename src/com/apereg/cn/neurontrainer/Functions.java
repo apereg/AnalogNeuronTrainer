@@ -1,5 +1,5 @@
 package com.apereg.cn.neurontrainer;
 
 public enum Functions {
-    IDENTITY, SIGMOIDAL
+    IDENTITY, SEN, SIGMOIDAL, GAUSSIAN
 }

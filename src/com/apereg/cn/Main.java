@@ -21,6 +21,8 @@ public class Main {
     public static int T_MAX1;
     public static int T_MAX2;
 
+    public static int[] R;
+
     public static double GAMMA;
 
     public static double ALPHA;
@@ -49,6 +51,7 @@ public class Main {
         Main.EA2 = Config.getEa2();
         Main.T_MAX1 = Config.getTMax1();
         Main.T_MAX2 = Config.getTMax2();
+        Main.R = Config.getR();
         Main.GAMMA = Config.getGamma();
         Main.ALPHA = Config.getAlpha();
         Main.checkConfigValues();
@@ -96,6 +99,10 @@ public class Main {
 
     public static int getTMax2() {
         return Main.T_MAX2;
+    }
+
+    public static int[] getR() {
+        return Main.R;
     }
 
     public static double getGamma() {
