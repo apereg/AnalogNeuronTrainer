@@ -4,13 +4,13 @@ import java.util.Random;
 
 public class Utils {
 
-    private static final Random random = new Random();
+    private static final Random RANDOM = new Random();
 
     /* Constructor privado ya que es una clase estatica. */
     private Utils() {}
 
     public static double generateRandom(int min, int max) {
-        return min + (max - min) * random.nextDouble();
+        return min + (max - min) * Utils.RANDOM.nextDouble();
     }
 
 }

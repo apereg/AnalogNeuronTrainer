@@ -10,7 +10,7 @@ import java.util.Properties;
 
 public class Config {
 
-    private static Properties prop = new Properties();
+    private static final Properties prop = new Properties();
 
     public static void init() throws InvalidConfigException {
         try {

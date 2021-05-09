@@ -9,18 +9,20 @@ import java.util.List;
 
 public class Trainer {
 
-    private Dataset trainingDataset;
+    private final Dataset trainingDataset;
 
-    private Dataset validationDataset;
+    private final Dataset validationDataset;
 
-    private List<Double> weights;
+    private final List<Double> weights;
 
     private int tVal = 0, tTrain = 0;
-    private int tMax1, tMax2;
-    private double em1, em2;
-    private double ea1, ea2;
+    private final int tMax1;
+    private final int tMax2;
+    private double em2;
+    private final double ea1;
+    private final double ea2;
     private double c;
-    private double alpha;
+    private final double alpha;
 
     public Trainer(Dataset trainingDataset, Dataset validationDataset) {
         this.trainingDataset = trainingDataset;
@@ -30,31 +32,38 @@ public class Trainer {
         this.tMax2 = Main.getTMax2();
         this.ea1 = Main.getEa1();
         this.ea2 = Main.getEa2();
+        this.alpha = Main.getAlpha();
     }
 
     public void run() {
         System.out.println("Parametros de ejecucion:");
         System.out.println("\tTiempo maximo de validacion: " +tMax1);
-        System.out.println("\tError aceptable de validacion:" +ea1);
+        System.out.println("\tError aceptable de validacion: " +ea1);
         System.out.println("\tTiempo maximo de entrenamiento: " +tMax2);
-        System.out.println("\tError aceptable de entrenamiento:" +ea2);
-        Main.debug("-- Inicializacion del algoritmo --");
+        System.out.println("\tError aceptable de entrenamiento: " +ea2+ "\n");
+
+        Main.debug("-------------------------------------------------------");
+        Main.debug("Inicializacion del algoritmo");
         /* Se inicializan los pesos y se calculan Em1 y Em2. */
         for (int i = 0; i <= Main.getN(); i++)
             weights.add(Utils.generateRandom(-1, 1));
         Main.debug("Pesos iniciales " +Arrays.toString(weights.toArray()));
 
+        /* Se calcula c. */
+        c = 0;
+
         /* Se calculan los errores medios iniciales. */
         this.calculatePAndY(Datasets.VALIDATION);
         double et1 = getEt(Datasets.VALIDATION);
-        em1 = et1 / validationDataset.getSize();
+        double em1 = et1 / validationDataset.getSize();
         this.calculatePAndY(Datasets.TRAINING);
         double et2 = getEt(Datasets.TRAINING);
         em2 = et2 / trainingDataset.getSize();
-        Main.debug("Errores iniciales: Em1: " +em1+ ", Em2: " +em2);
-        Main.debug("-- FIN Inicializacion del algoritmo --");
+        Main.debug("Errores iniciales -> Em1: " + em1 + ", Em2: " +em2);
+        Main.debug("-------------------------------------------------------\n");
 
-        Main.debug("-- Bucle algoritmo de aprendizaje --");
+        Main.debug("-------------------------------------------------------");
+        Main.debug("Algoritmo de aprendizaje");
         while (em1 > ea1 && tVal < tMax1) {
             /* Se delega el entrenamiento en una funcion auxiliar. */
             this.train();
@@ -63,24 +72,36 @@ public class Trainer {
             et1 = getEt(Datasets.VALIDATION);
             em1 = et1 / validationDataset.getSize();
             Main.debug("Acaba la iteracion " +tVal+ " del entrenamiento");
-            Main.debug("Error medio de validacion: " +em1);
+            Main.debug("Error medio de validacion: " + em1);
         }
-        Main.debug("-- FIN Bucle algoritmo de aprendizaje --");
+        Main.debug("-------------------------------------------------------\n");
         System.out.println("Acaba el algoritmo de aprendizaje:");
-        System.out.println("\tPesos finales: " +Arrays.toString(weights.toArray()));
-        System.out.println("\tError medio de validacion: " +em1);
-        System.out.println("\tError medio de entrenamiento: " +em2);
+        System.out.println("Pesos finales: " +Arrays.toString(weights.toArray()));
+        System.out.println("Error medio de validacion: " + em1);
+        System.out.println("Error medio de entrenamiento: " +em2);
     }
 
     private void train() {
         while (em2 > ea2 && tTrain < tMax2) {
+            /* Se calcula el potencial y y(k) con los pesos actuales. */
+            this.calculatePAndY(Datasets.TRAINING);
+
+            /* Se actualizan los pesos por cada muestra del dataset de entrenamiento. */
             for (int i = 0; i < Main.getSTraining(); i++) {
                 IrisData data = trainingDataset.getIrisData(i);
-                //for (int j = 0; j < Main.getN(); j++) {
-                    /* Regla del descenso del gradiente y aplicacion del momentum. */
-
-                //}
+                for (int j = 0; j < data.getVarsLength(); j++) {
+                    double newWeight = -gamma(tTrain) * 0.5 * 2 * (data.getPredictedResult() - data.getResult()) * deryp(data.getPotential()) * Math.pow(data.getVar(j), Main.getR()[j]);
+                    weights.set(j, newWeight);
+                }
+                weights.set(weights.size() - 1, -gamma(tTrain) * 0.5 * 2 * (data.getPredictedResult() - data.getResult()) * deryp(data.getPotential()) * Math.pow(1, Main.getR()[Main.getR().length - 1]));
             }
+
+            /* Se calcula em2 con los ultimos pesos obtenidos. */
+            this.calculatePAndY(Datasets.TRAINING);
+            double et2 = getEt(Datasets.TRAINING);
+            em2 = et2 / trainingDataset.getSize();
+
+            tTrain++;
         }
     }
 
@@ -137,6 +158,10 @@ public class Trainer {
             case SIGMOIDAL -> 2 * value * (1 - value);
             case GAUSSIAN -> 2 * Math.exp(- Math.pow(value, 2)) * (-2 * value);
         };
+    }
+
+    private double gamma(double t){
+        return (-1 / (1 + Math.exp(-alpha * (t-c)))) + 1;
     }
 
 }

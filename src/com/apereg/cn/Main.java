@@ -41,7 +41,6 @@ public class Main {
 
         /* Se delega el entrenamiento en otra clase. */
         new Trainer(trainingDataset, validationDataset).run();
-
     }
 
     private static void getConfigValues() throws InvalidConfigException {
@@ -75,14 +74,6 @@ public class Main {
 
     public static int getN() {
         return Main.N;
-    }
-
-    public static int getS() {
-        return Main.S;
-    }
-
-    public static int getSValidation() {
-        return Main.S_VALIDATION;
     }
 
     public static int getSTraining() {
