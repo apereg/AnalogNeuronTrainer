@@ -63,14 +63,6 @@ public class Config {
         }
     }
 
-
-    public static double getGamma() throws InvalidConfigException {
-        try {
-            return Double.parseDouble(prop.getProperty("Gamma"));
-        } catch (Exception e) {
-            throw new InvalidConfigException("Error al leer la propiedad 'Gamma' del fichero params.properties");
-        }
-    }
     public static double getAlpha() throws InvalidConfigException {
         try {
             return Double.parseDouble(prop.getProperty("Alpha"));

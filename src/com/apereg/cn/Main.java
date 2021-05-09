@@ -10,6 +10,8 @@ import com.apereg.cn.utils.CSVMapper;
 
 public class Main {
 
+    public static final boolean DEBUG = true;
+
     public static Functions USED_FUNCTION = Functions.SEN;
 
     public static int N;
@@ -21,8 +23,6 @@ public class Main {
     public static int T_MAX1, T_MAX2;
 
     public static int[] R;
-
-    public static double GAMMA;
 
     public static double ALPHA;
 
@@ -51,7 +51,6 @@ public class Main {
         Main.T_MAX1 = Config.getTMax1();
         Main.T_MAX2 = Config.getTMax2();
         Main.R = Config.getR();
-        Main.GAMMA = Config.getGamma();
         Main.ALPHA = Config.getAlpha();
         Main.checkConfigValues();
     }
@@ -60,8 +59,8 @@ public class Main {
         /* Se comprueban todos los parametros en busca de inconsistencias. */
         StringBuilder exceptions = new StringBuilder();
 
-        if (Main.GAMMA < 0 || Main.GAMMA > 1)
-            exceptions.append("\tEl parametro Gamma debe estar en el intervalo [0,1)\n");
+        if (Main.ALPHA < 0 || Main.ALPHA > 1)
+            exceptions.append("\tEl parametro C debe estar en el intervalo [0,1)\n");
 
         //TODO todos los demas
 
@@ -70,7 +69,7 @@ public class Main {
             throw new InvalidConfigException("Se deben corregir los siguientes fallos en el fichero params.properties:\n" + exceptions);
     }
 
-    public static Functions getUsedFunction(){
+    public static Functions getUsedFunction() {
         return Main.USED_FUNCTION;
     }
 
@@ -110,12 +109,13 @@ public class Main {
         return Main.R;
     }
 
-    public static double getGamma() {
-        return Main.GAMMA;
-    }
-
     public static double getAlpha() {
         return Main.ALPHA;
+    }
+
+    public static void debug(String text) {
+        if (Main.DEBUG)
+            System.out.println(text);
     }
 
 }

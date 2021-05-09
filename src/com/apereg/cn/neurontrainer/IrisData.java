@@ -21,8 +21,12 @@ public class IrisData {
         return this.vars.size();
     }
 
+    public double getVar(int index){
+        return this.vars.get(index);
+    }
+
     public void addVar(Double var) {
-        vars.add(var);
+        this.vars.add(var);
     }
 
     public double getPotential() {
