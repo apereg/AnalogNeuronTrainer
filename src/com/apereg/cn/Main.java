@@ -10,9 +10,9 @@ import com.apereg.cn.utils.CSVMapper;
 
 public class Main {
 
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
 
-    public static Functions USED_FUNCTION = Functions.SEN;
+    public static Functions USED_FUNCTION = Functions.IDENTITY;
 
     public static int N;
 
@@ -58,10 +58,18 @@ public class Main {
         /* Se comprueban todos los parametros en busca de inconsistencias. */
         StringBuilder exceptions = new StringBuilder();
 
+        if (Main.EA1 < 0.0 || Main.EA1 > 1)
+            exceptions.append("\tEl error aceptable de validacion debe estar en el intervalo [0,1]\n");
+        if (Main.EA2 < 0.0 || Main.EA2 > 1)
+            exceptions.append("\tEl error aceptable de entrenamiento debe estar en el intervalo [0,1]\n");
+        if (Main.T_MAX1 < 1)
+            exceptions.append("\tEl tiempo maximo del algoritmo de validacion debe ser positivo (Si no no se ejecutaria)\n");
+        if (Main.T_MAX2 < 1)
+            exceptions.append("\tEl tiempo maximo del algoritmo de entrenamiento debe ser positivo (Si no no se ejecutaria)\n");
         if (Main.ALPHA < 0 || Main.ALPHA > 1)
-            exceptions.append("\tEl parametro C debe estar en el intervalo [0,1)\n");
-
-        //TODO todos los demas
+            exceptions.append("\tEl parametro ALPHA debe estar en el intervalo [0,1]\n");
+        if (Main.R.length != Main.N + 1)
+            exceptions.append("\tLa longitud de R debe ser igual al numero de pesos (").append(Main.N + 1).append(")");
 
         /* Si alguno de los parametros es inconsistente se muestra la información como excepcion. */
         if (exceptions.length() != 0)
@@ -74,6 +82,10 @@ public class Main {
 
     public static int getN() {
         return Main.N;
+    }
+
+    public static int getSValidation() {
+        return Main.S_VALIDATION;
     }
 
     public static int getSTraining() {

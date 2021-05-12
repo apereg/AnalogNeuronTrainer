@@ -16,7 +16,7 @@ public class Config {
         try {
             File file = new File("params.properties");
             if (!file.exists())
-                throw new InvalidConfigException();
+                throw new InvalidConfigException("No se encontro el fichero params.properties en la raiz del proyecto");
             prop.load(new FileInputStream(file));
         } catch (IOException e) {
             throw new InvalidConfigException("Error while loading params.properties");

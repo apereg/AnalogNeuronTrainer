@@ -37,8 +37,8 @@ public class CSVMapper {
                 /* Se van creando objetos de tipo data por cada fila del csv. */
                 IrisData data = new IrisData();
                 for (int i = 0; i < fields.length - 1; i++)
-                    data.addVar(Double.parseDouble(fields[i]));
-                data.setResult(Integer.parseInt(fields[fields.length - 1]));
+                    data.addX(Double.parseDouble(fields[i]));
+                data.setD(Integer.parseInt(fields[fields.length - 1]));
                 fileMapped.addRecord(data);
                 line = br.readLine();
             }

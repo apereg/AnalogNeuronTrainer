@@ -5,59 +5,59 @@ import java.util.List;
 
 public class IrisData {
 
-    private final List<Double> vars;
+    private final List<Double> x;
 
-    private double potential;
+    private double p;
 
-    private double predictedResult;
+    private double y;
 
-    private double result;
+    private double d;
 
     public IrisData() {
-        vars = new LinkedList<>();
+        x = new LinkedList<>();
     }
 
     public int getVarsLength() {
-        return this.vars.size();
+        return this.x.size();
     }
 
-    public double getVar(int index){
-        return this.vars.get(index);
+    public double getX(int index){
+        return this.x.get(index);
     }
 
-    public void addVar(Double var) {
-        this.vars.add(var);
+    public void addX(Double xj) {
+        this.x.add(xj);
     }
 
-    public double getPotential() {
-        return this.potential;
+    public double getP() {
+        return this.p;
     }
 
-    public void setPotential(double potential) {
-        this.potential = potential;
+    public void setP(double p) {
+        this.p = p;
     }
 
-    public double getPredictedResult() {
-        return this.predictedResult;
+    public double getY() {
+        return this.y;
     }
 
-    public void setPredictedResult(double predictedResult) {
-        this.predictedResult = predictedResult;
+    public void setY(double y) {
+        this.y = y;
     }
 
-    public double getResult() {
-        return this.result;
+    public double getD() {
+        return this.d;
     }
 
-    public void setResult(double result) {
-        this.result = result;
+    public void setD(double d) {
+        this.d = d;
     }
 
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder("Datos: [");
-        for (Double data : vars)
+        for (Double data : x)
             str.append(data).append(", ");
-        return str.delete(str.length() - 2, str.length()).append("] --> Resultado: ").append(result).toString();
+        return str.delete(str.length() - 2, str.length()).append("] --> Resultado: ").append(d).toString();
     }
 }
