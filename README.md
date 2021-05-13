@@ -1,3 +1,9 @@
+<p align="center">
+  <img align="left" src="https://forthebadge.com/images/badges/built-with-love.svg">
+  <img src="https://forthebadge.com/images/badges/made-with-java.svg">
+  <img align="right" src="https://forthebadge.com/images/badges/cc-nc-sa.svg">
+</p>
+
 # AnalogNeuronTrainer
 Tercera práctica de la asignatura de Computación neuronal y evolutiva
 Entregada por Adrián Pérez García el dia 13/05/2021<br><br>
@@ -31,9 +37,7 @@ Todos los parametros previamente mencionados se pueden modificar mediante el fic
 Se ha utilizado Java como único lenguaje de programación usando como kit de desarrollo JDK 15.
 
 ##
-
+<br>
 <p align="center">
-  <img align="left" src="https://forthebadge.com/images/badges/built-with-love.svg">
-  <img src="https://forthebadge.com/images/badges/made-with-java.svg">
-  <img align="right" src="https://forthebadge.com/images/badges/cc-nc-sa.svg">
+  <img align="center" src="https://forthebadge.com/images/badges/60-percent-of-the-time-works-every-time.svg">
 </p>
