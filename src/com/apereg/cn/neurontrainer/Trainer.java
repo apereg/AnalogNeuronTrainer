@@ -54,8 +54,8 @@ public class Trainer {
         c = ((double) (7 * tMax2)) / 8;
 
         /* Se calculan los errores medios iniciales. */
-        this.calculatePAndY(Datasets.VALIDATION);
-        this.calculatePAndY(Datasets.TRAINING);
+        this.calculateAllPAndY(Datasets.VALIDATION);
+        this.calculateAllPAndY(Datasets.TRAINING);
         /* Se calcula em1 como et1 / s1 y em2 como et2 / s2. */
         double em1 = this.getEt(Datasets.VALIDATION) / validationDataset.getSize();
         this.em2 = getEt(Datasets.TRAINING) / trainingDataset.getSize();
@@ -75,7 +75,7 @@ public class Trainer {
 
             /* Se recalcula Em1. */
             Main.debug("\nAcaba la iteracion " + tVal + " del entrenamiento");
-            this.calculatePAndY(Datasets.VALIDATION);
+            this.calculateAllPAndY(Datasets.VALIDATION);
             em1 = getEt(Datasets.VALIDATION) / this.validationDataset.getSize();
             Main.debug("Error medio de validacion: " + em1);
             Main.debug("-------------------------------------------------------");
@@ -98,12 +98,12 @@ public class Trainer {
 
             /* Se actualizan los pesos por cada muestra del dataset de entrenamiento. */
             for (int i = 0; i < Main.getSTraining(); i++) {
+                IrisData data = trainingDataset.getIrisData(i);
 
                 /* Se calcula el potencial y la funcion y(k) con los pesos actuales. */
-                this.calculatePAndY(Datasets.TRAINING);
+                this.calculatePAndY(data);
 
                 /* Se actualizan los pesos para cada x de la muestra i. */
-                IrisData data = trainingDataset.getIrisData(i);
                 Main.debug("Se entrena la red con la muestra " + i);
                 Main.debug("Pesos antes: " + Arrays.toString(this.weights));
                 for (int j = 0; j <= Main.getN(); j++)
@@ -112,14 +112,14 @@ public class Trainer {
             }
 
             /* Se calcula em2 con los ultimos pesos obtenidos. */
-            this.calculatePAndY(Datasets.TRAINING);
+            this.calculateAllPAndY(Datasets.TRAINING);
             this.em2 = getEt(Datasets.TRAINING) / trainingDataset.getSize();
             System.out.println("Error medio al acabar la iteracion " + tTrain + " del entrenamiento: " + this.em2);
             tTrain++;
         }
     }
 
-    private void calculatePAndY(Datasets chosenDataset) {
+    private void calculateAllPAndY(Datasets chosenDataset) {
         Dataset dataset;
         if (chosenDataset == Datasets.VALIDATION)
             dataset = validationDataset;
@@ -127,15 +127,17 @@ public class Trainer {
             dataset = trainingDataset;
 
         /* Se calcula el potencial y el y(k) para cada entrada del conjunto de validacion. */
-        for (int i = 0; i < dataset.getSize(); i++) {
-            IrisData data = dataset.getIrisData(i);
-            double potential = 0;
-            /* p(k) := sum( wj * xkj, j,0,n) */
-            for (int j = 0; j < data.getVarsLength(); j++)
-                potential += (weights[j] * data.getX(j));
-            data.setP(potential);
-            data.setY(this.calculateY(potential));
-        }
+        for (int i = 0; i < dataset.getSize(); i++)
+            this.calculatePAndY(dataset.getIrisData(i));
+    }
+
+    private void calculatePAndY(IrisData data){
+        double potential = 0;
+        /* p(k) := sum( wj * xkj, j,0,n) */
+        for (int j = 0; j < data.getVarsLength(); j++)
+            potential += (weights[j] * data.getX(j));
+        data.setP(potential);
+        data.setY(this.calculateY(potential));
     }
 
     private double calculateY(double potential) {
