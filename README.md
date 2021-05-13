@@ -1,34 +1,26 @@
-<p align=center>
-  <img src="https://forthebadge.com/images/badges/cc-nc-sa.svg" alt="forthebadge" />
-  <img src="https://forthebadge.com/images/badges/made-with-java.svg" alt="forthebadge" />
-  <img src="https://forthebadge.com/images/badges/built-with-love.svg" alt="forthebadge" />
-</p>
-
 # AnalogNeuronTrainer
 Tercera práctica de la asignatura de Computación neuronal y evolutiva
-Entregada por Adrián Pérez García el dia 13/05/2021
+Entregada por Adrián Pérez García el dia 13/05/2021<br><br>
+
 
 <p align=center>
   <img src="resources/githubReadmeIcon.png"  alt="icon">
 </p>
 
-Se implementa el entrenamiento de una neurona analógica sobre un dataset personalizado obtenido como la normalización de un conjunto de datos sobre el tipo de iris segun cuatro variables.
 
--   Personalización de errores aceptables en el aprendizaje (Tanto para el conjunto de entrenamiento como para el de de validación).
+<br>Se implementa el entrenamiento de una neurona analógica contra un dataset normalizado sobre el tipo de iris segun cuatro variables extraido de <a href="https://sci2s.ugr.es/keel/category.php?cat=clas">KEEL</a> con las siguientes personalizaciones:
 
--   Personalización de tiempos máximos de iteraciones de aprendizaje y entrenamiendo.
+-   Configurables errores medios aceptables en el aprendizaje (Tanto para el conjunto de entrenamiento como para el de de validación).
 
--   Personalización del parametro de aprendizaje alpha
+-   Configurables tiempos máximos (número de iteraciones) del algoritmo de aprendizaje y del sub-algoritmo del entrenamiento.
 
--   Personalización de lo de la r
+-   Personalizable el parametro de aprendizaje Alpha (α).
+
+-   Configurables los exponentes del cálculo del potencial.
 
 -   Posibilidad, mediante la variable debug, de ver detalladamente los cambios en los pesos para cada iteración en el entrenamiento.
 
 -   Personalización de cálculo de la función y(k) entre función identidad, seno, sigmoidal o gaussiana.
-
-<p align=center>
-  <img src="resources/githubReadmeDescription.png"  alt="icon">
-</p>
 
 ## Uso
 
@@ -37,3 +29,11 @@ Todos los parametros previamente mencionados se pueden modificar mediante el fic
 ## Tecnologías
 
 Se ha utilizado Java como único lenguaje de programación usando como kit de desarrollo JDK 15.
+
+##
+
+<p align="center">
+  <img align="left" src="https://forthebadge.com/images/badges/built-with-love.svg">
+  <img src="https://forthebadge.com/images/badges/made-with-java.svg">
+  <img align="right" src="https://forthebadge.com/images/badges/cc-nc-sa.svg">
+</p>
