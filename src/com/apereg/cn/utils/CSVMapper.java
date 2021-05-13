@@ -36,8 +36,11 @@ public class CSVMapper {
                 String[] fields = line.split(";");
                 /* Se van creando objetos de tipo data por cada fila del csv. */
                 IrisData data = new IrisData();
+                /* Se rellena con los datos leidos del excel. */
                 for (int i = 0; i < fields.length - 1; i++)
                     data.addX(Double.parseDouble(fields[i]));
+                /* Se añade el peso umbral. */
+                data.addX(1.0);
                 data.setD(Integer.parseInt(fields[fields.length - 1]));
                 fileMapped.addRecord(data);
                 line = br.readLine();

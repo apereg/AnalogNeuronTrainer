@@ -12,7 +12,7 @@ public class Main {
 
     public static final boolean DEBUG = false;
 
-    public static Functions USED_FUNCTION = Functions.IDENTITY;
+    public static Functions USED_FUNCTION = Functions.GAUSSIAN;
 
     public static int N;
 
@@ -27,17 +27,17 @@ public class Main {
     public static double ALPHA;
 
     public static void main(String[] args) throws MappingDatasetException, InvalidConfigException {
-        /* Se obtienen los valores del archivo properties. */
-        Main.getConfigValues();
-
         /* Se mapean ambos CSV. */
         Dataset trainingDataset = CSVMapper.getMapper().map("./resources/irisTrainingDataset.csv");
         Dataset validationDataset = CSVMapper.getMapper().map("./resources/irisValidationDataset.csv");
 
         /* Se calculan N y los tamaños de los dataset. */
-        Main.N = trainingDataset.getDataVars();
+        Main.N = trainingDataset.getDataVars() - 1;
         Main.S_VALIDATION = validationDataset.getSize();
         Main.S = trainingDataset.getSize() + S_VALIDATION;
+
+        /* Se obtienen y comprueban los valores del archivo properties. */
+        Main.getConfigValues();
 
         /* Se delega el entrenamiento en otra clase. */
         new Trainer(trainingDataset, validationDataset).run();
@@ -82,10 +82,6 @@ public class Main {
 
     public static int getN() {
         return Main.N;
-    }
-
-    public static int getSValidation() {
-        return Main.S_VALIDATION;
     }
 
     public static int getSTraining() {
